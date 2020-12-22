@@ -8,6 +8,8 @@ _AWS_SECRET_ACCESS_KEY = None
 
 
 def init(aws_access_key_id: str, aws_secret_access_key: str):
+    global _AWS_ACCESS_KEY_ID
+    global _AWS_SECRET_ACCESS_KEY
     _AWS_ACCESS_KEY_ID = aws_access_key_id
     _AWS_SECRET_ACCESS_KEY = aws_secret_access_key
 
