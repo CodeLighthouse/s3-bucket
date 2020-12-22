@@ -2,7 +2,7 @@ import boto3
 from botocore.exceptions import ClientError
 import os
 from typing import Union, Dict
-from . import exceptions
+from . import S3Exceptions
 
 
 class Bucket():
@@ -44,13 +44,13 @@ class Bucket():
         print(e.response)
 
         if error_code == 'AccessDenied':
-            raise exceptions.BucketAccessDenied(self.bucket_name)
+            raise S3Exceptions.BucketAccessDenied(self.bucket_name)
         elif error_code == 'NoSuchBucket':
-            raise exceptions.NoSuchBucket(self.bucket_name)
+            raise S3Exceptions.NoSuchBucket(self.bucket_name)
         elif error_code == 'NoSuchKey':
-            raise exceptions.NoSuchKey(key, self.bucket_name)
+            raise S3Exceptions.NoSuchKey(key, self.bucket_name)
         else:
-            raise exceptions.UnknownBucketException(self.bucket_name, e)
+            raise S3Exceptions.UnknownBucketException(self.bucket_name, e)
 
     def get(self, key: str, responseContentType: str = None) -> (bytes, Dict):
         """
