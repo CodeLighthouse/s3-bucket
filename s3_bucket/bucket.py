@@ -3,29 +3,27 @@ from botocore.exceptions import ClientError
 from typing import Union, Dict
 from . import exceptions
 
-_AWS_ACCESS_KEY_ID = None
-_AWS_SECRET_ACCESS_KEY = None
-
-
-def init(aws_access_key_id: str, aws_secret_access_key: str):
-    global _AWS_ACCESS_KEY_ID
-    global _AWS_SECRET_ACCESS_KEY
-    _AWS_ACCESS_KEY_ID = aws_access_key_id
-    _AWS_SECRET_ACCESS_KEY = aws_secret_access_key
-
 
 class Bucket:
     """
     CLASS THAT HANDLES S3 BUCKET TRANSACTIONS. ABSTRACTS AWAY BOTO3'S ARCANE BS.
     HANDLES BOTO3'S EXCEPTIONS WITH CUSTOM EXCEPTION CLASSES TO MAKE CODE USABLE
     """
+    _AWS_ACCESS_KEY_ID = None
+    _AWS_SECRET_ACCESS_KEY = None
 
     def __init__(self, bucket_name: str):
 
         # ENSURE THE PACKAGE HAS BEEN CONFIGURED WITH THE APPROPRIATE ACCESS KEYS
-        if not _AWS_ACCESS_KEY_ID or not _AWS_SECRET_ACCESS_KEY:
-            raise TypeError("AWS access key ID and AWS Secret access key must be configured using S3.init()!")
+        if not self._AWS_ACCESS_KEY_ID or not self._AWS_SECRET_ACCESS_KEY:
+            raise TypeError("AWS access key ID and AWS Secret access key must be configured.  They're class variables"
+                            "for the Bucket class.  You can set them by calling Bucket.prepare(access_key, secret_key)")
         self.bucket_name = bucket_name
+
+    @classmethod
+    def prepare(cls, aws_access_key_id: str, aws_secret_access_key: str):
+        cls._AWS_ACCESS_KEY_ID = aws_access_key_id
+        cls._AWS_SECRET_ACCESS_KEY = aws_secret_access_key
 
     @staticmethod
     def _get_boto3_resource():
@@ -35,8 +33,8 @@ class Bucket:
         # CREATE A "SESSION" WITH BOTO3
 
         _session = boto3.Session(
-            aws_access_key_id=_AWS_ACCESS_KEY_ID,
-            aws_secret_access_key=_AWS_SECRET_ACCESS_KEY
+            aws_access_key_id=Bucket._AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=Bucket._AWS_SECRET_ACCESS_KEY
         )
 
         # CREATE S3 RESOURCE
