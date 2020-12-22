@@ -1,7 +1,7 @@
 import boto3
 from botocore.exceptions import ClientError
 from typing import Union, Dict
-from lib import exceptions
+from . import exceptions
 
 _AWS_ACCESS_KEY_ID = None
 _AWS_SECRET_ACCESS_KEY = None
