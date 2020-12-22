@@ -16,7 +16,7 @@ To develop with S3 faster, we wrote a Python package to abstract away a lot of t
 Our S3 client is hosted on [PyPi](https://pypi.org/project/s3-bucket), so it couldn't be easier to install:
 
 ```
-pip install s3-buckets
+pip install s3-bucket
 ```
 
 ### Configuring the S3 Client
