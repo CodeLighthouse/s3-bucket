@@ -75,6 +75,16 @@ Instead of relying on your client code to decipher botocore's exceptions, I wrot
 | `BucketAccessDenied` | AWS denied access to the bucket you tried to access. It may not exist, or you may not have permission to access it. | `bucket`, `message` |
 | `UnknownBucketException` | Botocore threw an exception which this client was not programmed to handle. | `bucket`, `error_code`, `error_message` |
 
+To use these exceptions, you can do the following:
+```python
+try:
+	bucket = S3.Bucket('my-bucket-name') 
+	data, metadata = bucket.get('some key')
+except S3.Exceptions.NoSuchBucket as e:
+	# some error handling here
+	pass
+```
+
 ## Examples
 Below we've provided some examples of common use cases for the S3 Client.
 
