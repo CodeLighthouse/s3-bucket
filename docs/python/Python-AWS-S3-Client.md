@@ -34,7 +34,7 @@ AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
 # initialize the package
-S3.init(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+S3.Bucket.prepare(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
 ```
 
 ## Using the S3 Client
@@ -100,7 +100,7 @@ AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
 # initialize the package
-S3.init(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+S3.Bucket.prepare(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
 
 # initialize a bucket
 my_bucket = S3.Bucket('my-bucket')
@@ -123,8 +123,7 @@ AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
 # initialize the package
-S3.init(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
-
+S3.Bucket.prepare(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
 # initialize a bucket
 my_bucket = S3.bucket('my-bucket')
 

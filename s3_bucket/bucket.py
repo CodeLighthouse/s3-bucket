@@ -15,7 +15,7 @@ class Bucket:
     def __init__(self, bucket_name: str):
 
         # ENSURE THE PACKAGE HAS BEEN CONFIGURED WITH THE APPROPRIATE ACCESS KEYS
-        if not self._AWS_ACCESS_KEY_ID or not self._AWS_SECRET_ACCESS_KEY:
+        if not Bucket._AWS_ACCESS_KEY_ID or not Bucket._AWS_SECRET_ACCESS_KEY:
             raise TypeError("AWS access key ID and AWS Secret access key must be configured.  They're class variables"
                             "for the Bucket class.  You can set them by calling Bucket.prepare(access_key, secret_key)")
         self.bucket_name = bucket_name
