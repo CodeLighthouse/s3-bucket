@@ -70,7 +70,7 @@ Instead of relying on your client code to decipher botocore's exceptions, I wrot
 |Exception         | Cause | Properties |
 | :--------------- | :-----| :--------- |
 | `BucketException` | The `super` class for all other Bucket exceptions. Can be used to generically catch other exceptions raised by the API. | `bucket`, `message` |
-| `NoSuchBucket` | Raised if you try to access a bucket that does not exist. |`bucket`, `key`, `message` | 
+| `NoSuchBucket` | Raised if you try to access a bucket that does not exist. |`bucket`, `message` | 
 | `NoSuchKey` | Raised if you try to access an object that does not exist within an existing bucket. | `bucket`, `key`, `message` | 
 | `BucketAccessDenied` | AWS denied access to the bucket you tried to access. It may not exist, or you may not have permission to access it. | `bucket`, `message` |
 | `UnknownBucketException` | Botocore threw an exception which this client was not programmed to handle. | `bucket`, `error_code`, `error_message` |
