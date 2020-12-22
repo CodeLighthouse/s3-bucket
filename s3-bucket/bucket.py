@@ -12,7 +12,7 @@ def init(aws_access_key_id: str, aws_secret_access_key: str):
     _AWS_SECRET_ACCESS_KEY = aws_secret_access_key
 
 
-class Bucket():
+class Bucket:
     """
     CLASS THAT HANDLES S3 BUCKET TRANSACTIONS. ABSTRACTS AWAY BOTO3'S ARCANE BS.
     HANDLES BOTO3'S EXCEPTIONS WITH CUSTOM EXCEPTION CLASSES TO MAKE CODE USABLE
@@ -63,12 +63,12 @@ class Bucket():
         else:
             raise exceptions.UnknownBucketException(self.bucket_name, e)
 
-    def get(self, key: str, responseContentType: str = None) -> (bytes, Dict):
+    def get(self, key: str, response_content_type: str = None) -> (bytes, Dict):
         """
         GET AN OBJECT FROM THE BUCKET AND RETURN A BYTES TYPE THAT MUST BE DECODED ACCORDING TO THE ENCODING TYPE
 
         :param key: THE KEY IN S3 OF THE OBJECT TO GET
-        :param responseContentType: THE CONTENT TYPE TO ENFORCE ON THE RESPONSE. MAY BE USEFUL IN SOME CASES
+        :param response_content_type: THE CONTENT TYPE TO ENFORCE ON THE RESPONSE. MAY BE USEFUL IN SOME CASES
         :return: A TWO-TUPLE: (1) A BYTES OBJECT THAT MUST BE DECODED DEPENDING ON HOW IT WAS ENCODED.
             LEFT UP TO MIDDLEWARE TO DETERMINE AND (2) A DICT CONTAINING METADATA ON WHEN THE OBJECT WAS STORED
         """
@@ -78,8 +78,8 @@ class Bucket():
         s3_bucket = resource.Object(self.bucket_name, key)
 
         try:
-            if responseContentType:
-                response = s3_bucket.get(ResponseContentType=responseContentType)
+            if response_content_type:
+                response = s3_bucket.get(ResponseContentType=response_content_type)
             else:
                 response = s3_bucket.get()
 
@@ -91,13 +91,13 @@ class Bucket():
         except ClientError as e:
             self._handle_boto3_client_error(e, key=key)
 
-    def put(self, key: str, data: Union[str, bytes], contentType: str = None, metadata: Dict = {}) -> Dict:
+    def put(self, key: str, data: Union[str, bytes], content_type: str = None, metadata: Dict = {}) -> Dict:
         """
         PUT AN OBJECT INTO THE BUCKET
 
         :param key: THE KEY TO STORE THE OBJECT UNDER
         :param data: THE DATA TO STORE. CAN BE BYTES OR STRING
-        :param contentType: THE MIME TYPE TO STORE THE DATA AS. MAY BE IMPORTANT FOR BINARY DATA
+        :param content_type: THE MIME TYPE TO STORE THE DATA AS. MAY BE IMPORTANT FOR BINARY DATA
         :param metadata: A DICT CONTAINING METADATA TO STORE WITH THE OBJECT. EXAMPLES INCLUDE TIMESTAMP OR
             ORGANIZATION NAME. VALUES _MUST_ BE STRINGS.
         :return: A DICT CONTAINING THE RESPONSE FROM S3. IF AN EXCEPTION IS NOT THROWN, ASSUME PUT OPERATION WAS SUCCESSFUL.
@@ -109,10 +109,10 @@ class Bucket():
 
         # PUT IT
         try:
-            if contentType:
+            if content_type:
                 response = s3_bucket.put(
                     Body=data,
-                    ContentType=contentType,
+                    ContentType=content_type,
                     Key=key,
                     Metadata=metadata
                 )
