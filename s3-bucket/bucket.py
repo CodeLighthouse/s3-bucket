@@ -4,11 +4,13 @@ from typing import Union, Dict
 from lib import exceptions
 
 _AWS_ACCESS_KEY_ID = None
-_AWS_SECRET_ACCESS_KEY= None
+_AWS_SECRET_ACCESS_KEY = None
+
 
 def init(aws_access_key_id: str, aws_secret_access_key: str):
     _AWS_ACCESS_KEY_ID = aws_access_key_id
     _AWS_SECRET_ACCESS_KEY = aws_secret_access_key
+
 
 class Bucket():
     """
@@ -22,8 +24,6 @@ class Bucket():
         if not _AWS_ACCESS_KEY_ID or not _AWS_SECRET_ACCESS_KEY:
             raise TypeError("AWS access key ID and AWS Secret access key must be configured using S3.init()!")
         self.bucket_name = bucket_name
-
-
 
     @staticmethod
     def _get_boto3_resource():
@@ -41,7 +41,6 @@ class Bucket():
         resource = _session.resource('s3')
 
         return resource
-
 
     def _handle_boto3_client_error(self, e: ClientError, key=None):
         """
@@ -64,8 +63,7 @@ class Bucket():
         else:
             raise exceptions.UnknownBucketException(self.bucket_name, e)
 
-
-    def get(self, key: str, responseContentType: str=None) -> (bytes, Dict):
+    def get(self, key: str, responseContentType: str = None) -> (bytes, Dict):
         """
         GET AN OBJECT FROM THE BUCKET AND RETURN A BYTES TYPE THAT MUST BE DECODED ACCORDING TO THE ENCODING TYPE
 
@@ -85,16 +83,15 @@ class Bucket():
             else:
                 response = s3_bucket.get()
 
-            data = response.get('Body').read() # THE OBJECT DATA STORED
-            metadata: Dict = response.get('Metadata') # METADATA STORED WITH THE OBJECT
+            data = response.get('Body').read()  # THE OBJECT DATA STORED
+            metadata: Dict = response.get('Metadata')  # METADATA STORED WITH THE OBJECT
             return data, metadata
 
         # BOTO RAISES ONLY ONE ERROR TYPE THAT THEN MUST BE PROCESSES TO GET THE CODE
         except ClientError as e:
             self._handle_boto3_client_error(e, key=key)
 
-
-    def put(self, key: str, data: Union[str, bytes], contentType: str=None, metadata: Dict={}) -> Dict:
+    def put(self, key: str, data: Union[str, bytes], contentType: str = None, metadata: Dict = {}) -> Dict:
         """
         PUT AN OBJECT INTO THE BUCKET
 
@@ -131,7 +128,6 @@ class Bucket():
         except ClientError as e:
             self._handle_boto3_client_error(e, key=key)
 
-
     def delete(self, key: str) -> Dict:
         """
         DELETE A SPECIFIED OBJECT FROM THE BUCKET
@@ -150,7 +146,6 @@ class Bucket():
         # BOTO RAISES ONLY ONE ERROR TYPE THAT THEN MUST BE PROCESSES TO GET THE CODE
         except ClientError as e:
             self._handle_boto3_client_error(e, key=key)
-
 
     def upload_file(self, local_filepath: str, key: str) -> Dict:
         """
@@ -173,7 +168,6 @@ class Bucket():
             # BOTO RAISES ONLY ONE ERROR TYPE THAT THEN MUST BE PROCESSES TO GET THE CODE
         except ClientError as e:
             self._handle_boto3_client_error(e, key=key)
-
 
     def download_file(self, key: str, local_filepath: str) -> Dict:
         """

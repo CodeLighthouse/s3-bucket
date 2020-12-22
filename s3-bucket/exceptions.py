@@ -1,9 +1,11 @@
 from botocore.exceptions import ClientError
+
 """
 CUSTOM EXCEPTIONS - DESIGNED AS MORE USEFUL WRAPPERS TO BOTOCORE'S ARCANE BS EXCUSE-FOR-EXCEPTIONS
 BASICALLY ENCAPSULATE BOTO EXCEPTIONS W/MORE INFORMATION.
 CLIENT CODE UNLIKELY TO KNOW HOW TO CATCH BOTOCORE EXCEPTIONS, BUT THESE ARE EXPOSED THROUGH S3 CLASS SO EZ
 """
+
 
 class BucketException(Exception):
     """
@@ -14,6 +16,7 @@ class BucketException(Exception):
         self.bucket = bucket
         self.message = f'{message}'
         super().__init__(self.message)
+
 
 class NoSuchKey(BucketException):
     """
@@ -49,6 +52,7 @@ class BucketAccessDenied(BucketException):
 
         super().__init__(self.message, self.bucket)
 
+
 class UnknownBucketException(BucketException):
     """
     RAISED IF AN UNKNOWN S3 EXCEPTION OCCURS
@@ -60,4 +64,3 @@ class UnknownBucketException(BucketException):
         error_message: str = e.response.get('Error').get('Message')
         self.message = f'Unknown Bucket Exception {error_code}: {error_message}'
         super().__init__(self.message, self.bucket)
-
