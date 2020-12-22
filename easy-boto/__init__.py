@@ -1,8 +1,7 @@
-from .lib import exceptions
-from .lib.bucket import Bucket, init
+from .S3 import S3Exceptions
+from .S3 import Bucket
 
 __all__ = [
-    init,
-    Bucket,
-    exceptions
+    "Bucket",
+    "S3Exceptions"
 ]

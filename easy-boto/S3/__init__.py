@@ -1,7 +1,7 @@
 from .bucket import Bucket
-from . import exceptions
+from . import S3Exceptions
 
 __all__ = [
     'Bucket',
-    exceptions
+    S3Exceptions
 ]
