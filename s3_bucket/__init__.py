@@ -1,7 +1,8 @@
-from .bucket import Bucket
+from .bucket import Bucket, init
 from . import exceptions as Exceptions
 
 __all__ = [
     "Bucket",
-    "Exceptions"
+    "Exceptions",
+    "init"
 ]
