@@ -16,17 +16,17 @@ To develop with S3 faster, we wrote a Python package to abstract away a lot of t
 ## Getting Started
 
 ### Installing with pip
-Our S3 client is hosted on [PyPi](PYPI LINK), so it couldn't be easier to install:
+Our S3 client is hosted on [PyPi](https://pypi.org/project/py-s3), so it couldn't be easier to install:
 
 ```
-pip install codelighthouse-s3-client
+pip install py-s3
 ```
 
 ### Configuring the S3 Client
 Once you've installed the S3 client, you'll need to configure it with your AWS access key ID and your AWS secret access key. We _strongly_ suggest _not_ hard-coding these values in your code, since doing so can create security vulnerabilities, and is bad practice. Instead, we recommend storing them in environment variables and using the `os` module to fetch them:
 
 ```python
-import codelighthouse_s3_client as S3
+import py_s3 as S3
 import os
 
 # get your key data from environment variables
@@ -82,7 +82,8 @@ Below we've provided some examples of common use cases for the S3 Client.
 This example shows how to upload and download files to/from your S3 bucket
 
 ```python
-import codelighthouse_s3_client as S3
+import py_s3 as S3
+import os
 
 # get your key data from environment variables
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
@@ -104,7 +105,8 @@ The reason that we originally built this client was to handle storing and retrie
 
 ```python
 
-import codelighthouse_s3_client as S3
+import py_s3 as S3
+import os
 
 # get your key data from environment variables
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
@@ -124,6 +126,3 @@ my_bucket.put('json_data_1', my_json_str)
 data, metadata = my_bucket.get('json_data_1')
 
 ```
-
-
-
