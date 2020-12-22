@@ -5,8 +5,8 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="CodeLighthouse_S",
-    version="1.1.0",
-    author="CodeLighthouseS3Client",
+    version="1.0.0",
+    author="CodeLighthouse",
     author_email="hello@codelighthouse.io",
     description="CodeLighthouse's AWS S3 client",
     long_description=long_description,
