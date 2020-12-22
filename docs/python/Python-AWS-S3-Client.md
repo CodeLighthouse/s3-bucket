@@ -1,3 +1,7 @@
+---
+tags: [python, aws, cloud, botocore]
+---
+
 # CodeLighthouse's Python AWS S3 Client
 
 Welcome to CodeLighthouse's official documentation for our python AWS S3 client! If you're looking for guidance on how to install, configure, and use the S3 client, you're in the right place! 
