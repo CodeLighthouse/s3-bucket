@@ -33,6 +33,23 @@ AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 S3.Bucket.prepare(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
 ```
 
+#### Temporary AWS Credentials
+
+If you're using [temporary credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html) (i.e. AWS STS) you'll need to pass in your session token as well:
+
+```python
+import s3_bucket as S3
+import os
+
+# get your key data from environment variables
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_SESSION_TOKEN = os.environ.get('AWS_SESSION_TOKEN')
+
+# initialize the package
+S3.Bucket.prepare(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN)
+```
+
 ## Using the S3 Client
 The S3 Client API is designed to be logically similar to how AWS structures S3 buckets. Instead of using botocore's `Resource`, `Session`, `Client`, and `Object` APIs, there is one, simple API: the `Bucket` API. 
 
