@@ -21,9 +21,10 @@ class Bucket:
         self.bucket_name = bucket_name
 
     @classmethod
-    def prepare(cls, aws_access_key_id: str, aws_secret_access_key: str):
+    def prepare(cls, aws_access_key_id: str, aws_secret_access_key: str, aws_session_token=None):
         cls._AWS_ACCESS_KEY_ID = aws_access_key_id
         cls._AWS_SECRET_ACCESS_KEY = aws_secret_access_key
+        cls._AWS_SESSION_TOKEN = aws_session_token
 
     @staticmethod
     def _get_boto3_resource():
@@ -34,7 +35,8 @@ class Bucket:
 
         _session = boto3.Session(
             aws_access_key_id=Bucket._AWS_ACCESS_KEY_ID,
-            aws_secret_access_key=Bucket._AWS_SECRET_ACCESS_KEY
+            aws_secret_access_key=Bucket._AWS_SECRET_ACCESS_KEY,
+            aws_session_token=Bucket._AWS_SESSION_TOKEN
         )
 
         # CREATE S3 RESOURCE
