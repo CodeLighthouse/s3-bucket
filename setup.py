@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="s3-bucket",
-    version="1.3.0",
+    version="1.4.0",
     author="CodeLighthouse",
     author_email="hello@codelighthouse.io",
     description="An easy to use client for S3",
