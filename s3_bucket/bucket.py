@@ -11,7 +11,8 @@ class Bucket:
     """
     _AWS_ACCESS_KEY_ID = None
     _AWS_SECRET_ACCESS_KEY = None
-
+    _ENDPOINT_URL = None
+    
     def __init__(self, bucket_name: str):
 
         # ENSURE THE PACKAGE HAS BEEN CONFIGURED WITH THE APPROPRIATE ACCESS KEYS
@@ -21,10 +22,11 @@ class Bucket:
         self.bucket_name = bucket_name
 
     @classmethod
-    def prepare(cls, aws_access_key_id: str, aws_secret_access_key: str, aws_session_token=None):
+    def prepare(cls, aws_access_key_id: str, aws_secret_access_key: str, aws_session_token=None, endpoint_url=None):
         cls._AWS_ACCESS_KEY_ID = aws_access_key_id
         cls._AWS_SECRET_ACCESS_KEY = aws_secret_access_key
         cls._AWS_SESSION_TOKEN = aws_session_token
+        cls._ENDPOINT_URL = endpoint_url
 
     @staticmethod
     def _get_boto3_resource():
@@ -40,7 +42,7 @@ class Bucket:
         )
 
         # CREATE S3 RESOURCE
-        resource = _session.resource('s3')
+        resource = _session.resource('s3', endpoint_url=Bucket._ENDPOINT_URL)
 
         return resource
 
